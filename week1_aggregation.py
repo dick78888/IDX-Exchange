@@ -36,10 +36,15 @@ for month in MONTHS:
     if spath:
         sold_frames.append(pd.read_csv(spath, low_memory=False, encoding='latin-1'))
 
+# Row counts before concatenation (individual monthly files loaded above)
+# Listing: 28 monthly files | Sold: 28 monthly files (filled versions used where available)
+
 listing = pd.concat(listing_frames, ignore_index=True)
 sold    = pd.concat(sold_frames,    ignore_index=True)
 
-# Row counts after concatenation (before filter)
+# Row counts after concatenation (before Residential filter)
+# Listing rows after concat : 840,693
+# Sold    rows after concat : 615,707
 print(f"\n[INFO] Listing rows after concat : {len(listing):,}")
 print(f"[INFO] Sold    rows after concat : {len(sold):,}")
 
@@ -47,7 +52,9 @@ print(f"[INFO] Sold    rows after concat : {len(sold):,}")
 listing_res = listing[listing["PropertyType"] == "Residential"].copy()
 sold_res    = sold[sold["PropertyType"]        == "Residential"].copy()
 
-# Row counts after filter
+# Row counts after Residential filter
+# Listing rows after filter : 534,664
+# Sold    rows after filter : 414,054
 print(f"[INFO] Listing rows after filter : {len(listing_res):,}")
 print(f"[INFO] Sold    rows after filter : {len(sold_res):,}")
 
