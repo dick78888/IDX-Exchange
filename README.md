@@ -46,7 +46,7 @@ Both datasets are pre-filtered to PropertyType == 'Residential' from Week 1. All
 - Key columns flagged: BusinessType, FireplacesTotal, TaxYear, CoveredSpaces, AboveGradeFinishedArea, ElementarySchoolDistrict (100% missing).
 - These columns are candidates for removal in the cleaning phase.
 
-- ## Week 3 – Mortgage Rate Enrichment
+## Week 3 – Mortgage Rate Enrichment
 **Script:** `week2_3_mortgage.py`
 
 Fetches the MORTGAGE30US series directly from the St. Louis Federal Reserve (FRED), resamples weekly rates to monthly averages, and merges onto both combined datasets using a year-month key derived from transaction dates. Validates that no null rate values exist after the merge.
