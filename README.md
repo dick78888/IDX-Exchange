@@ -12,7 +12,7 @@ Concatenates all monthly CRMLS Listing and Sold files from January 2024 through 
 - `CRMLSSold_Combined_Residential.csv` — 414,054 rows
 
 ## Week 2 – Dataset Structuring and Validation (EDA)
-**Script:** `week2_3_eda.py`
+**Script:** `week2 eda.py`
 
 Performs exploratory data analysis on the combined Residential datasets. Identifies unique property types and subtypes, flags columns with >90% missing values, and produces a numeric distribution summary for key fields including ClosePrice, LivingArea, and DaysOnMarket.
 
@@ -47,7 +47,7 @@ Both datasets are pre-filtered to PropertyType == 'Residential' from Week 1. All
 - These columns are candidates for removal in the cleaning phase.
 
 ## Week 3 – Mortgage Rate Enrichment
-**Script:** `week2_3_mortgage.py`
+**Script:** `week3 mortgage.py`
 
 Fetches the MORTGAGE30US series directly from the St. Louis Federal Reserve (FRED), resamples weekly rates to monthly averages, and merges onto both combined datasets using a year-month key derived from transaction dates. Validates that no null rate values exist after the merge.
 
