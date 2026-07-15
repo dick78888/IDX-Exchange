@@ -67,3 +67,13 @@ Fetches the MORTGAGE30US series directly from the St. Louis Federal Reserve (FRE
 **Output:**
 - `CRMLSSold_Enriched.csv` — 414,054 rows (rate_30yr_fixed added)
 - `CRMLSListing_Enriched.csv` — 534,664 rows (rate_30yr_fixed added)
+
+Week 4 - Merge and Clean
+
+Added two new months (202605, 202606) to the pipeline. After Residential filtering: Listing 582,611 rows (+47,947), Sold 448,036 rows (+33,982)
+Dropped 11 duplicate-named columns (.1 suffix) from raw exports
+All 4 date columns converted with 0 parse failures (both datasets)
+Invalid value flags: Listing invalid_area_flag 377, invalid_dom_flag 19, invalid_price_flag 0, invalid_beds_baths_flag 0; Sold invalid_area_flag 165, invalid_dom_flag 51, invalid_price_flag 1, invalid_beds_baths_flag 0
+Date consistency flags: listing_after_close_flag 81 (Listing) / 68 (Sold); purchase_after_close_flag 244 / 240; negative_timeline_flag 287 / 290
+Geographic flags: missing_coord_flag 72,411 (12.4%) for Listing vs 4,378 (1.0%) for Sold; out_of_ca_bounds_flag 72,721 (12.5%) vs 4,478 (1.0%) — Listing's much higher rate likely reflects active/pending records not yet geocoded, worth verifying
+Outputs: week4_cleaned_listing.csv (582,611 rows), week4_cleaned_sold.csv (448,036 rows), row counts unchanged since invalid records are flagged, not dropped
