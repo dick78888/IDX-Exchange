@@ -1,36 +1,8 @@
-"""
-Week 4 - Data cleaning on the Week 1 combined dataset.
-
-Prerequisite (do this first, not in this script):
-  1. Copy the new raw monthly files (e.g. CRMLSListing202605.csv,
-     CRMLSListing202606.csv, CRMLSSold202605.csv, CRMLSSold202606.csv) into
-     the same folder as the other monthly raw files.
-  2. Add the new months to the MONTHS list in week1_aggregation.py:
-       "202601", "202602", "202603", "202604", "202605", "202606",
-  3. Rerun week1_aggregation.py. It reprocesses every month in MONTHS from
-     scratch and overwrites CRMLSListing_Combined_Residential.csv /
-     CRMLSSold_Combined_Residential.csv with the full, updated dataset.
-
-This script then picks up those regenerated combined files and runs Week 4
-cleaning on them:
-  - remove redundant duplicate-named columns
-  - datetime conversion
-  - numeric type enforcement + invalid value flags
-  - date consistency flags
-  - geographic data quality flags
-
-Note: raw Listing exports contain 11 duplicate column names (PropertyType,
-CloseDate, Latitude, etc.), which pandas auto-renames to a '.1' suffix on
-read (e.g. 'PropertyType.1'). Week 1 never dropped these, so they carry
-through into the combined file - this script removes them as part of the
-"remove redundant columns" task (see drop_redundant_columns() below).
-"""
-
 import pandas as pd
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
-# CONFIG - update this path to match your local directory structure
+# CONFIG - update this path to match  local directory structure
 # ---------------------------------------------------------------------------
 BASE_DIR = Path(r"C:\IDX-Exchange\csv")
 
