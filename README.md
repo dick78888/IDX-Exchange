@@ -77,3 +77,9 @@ Invalid value flags: Listing invalid_area_flag 377, invalid_dom_flag 19, invalid
 Date consistency flags: listing_after_close_flag 81 (Listing) / 68 (Sold); purchase_after_close_flag 244 / 240; negative_timeline_flag 287 / 290
 Geographic flags: missing_coord_flag 72,411 (12.4%) for Listing vs 4,378 (1.0%) for Sold; out_of_ca_bounds_flag 72,721 (12.5%) vs 4,478 (1.0%) — Listing's much higher rate likely reflects active/pending records not yet geocoded, worth verifying
 Outputs: week4_cleaned_listing.csv (582,611 rows), week4_cleaned_sold.csv (448,036 rows), row counts unchanged since invalid records are flagged, not dropped
+
+Week 5 - Merge and Clean
+
+Dropped 14 unnecessary/redundant columns (fully empty fields like TaxYear and FireplacesTotal, plus duplicates of existing fields like LivingArea and LotSizeAcres). Three fields (WaterfrontYN, BasementYN, BelowGradeFinishedArea) had their missing values filled with N/0 instead of being dropped, since a blank there means "not marked" rather than "unknown."
+
+After cleaning, Listing has 70 columns and Sold has 81, with row counts unchanged (582,611 / 448,036) — same as before, invalid values are flagged rather than dropped, and no records were removed.
