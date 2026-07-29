@@ -83,3 +83,26 @@ Week 5 - Merge and Clean
 Dropped 14 unnecessary/redundant columns (fully empty fields like TaxYear and FireplacesTotal, plus duplicates of existing fields like LivingArea and LotSizeAcres). Three fields (WaterfrontYN, BasementYN, BelowGradeFinishedArea) had their missing values filled with N/0 instead of being dropped, since a blank there means "not marked" rather than "unknown."
 
 After cleaning, Listing has 70 columns and Sold has 81, with row counts unchanged (582,611 / 448,036) — same as before, invalid values are flagged rather than dropped, and no records were removed.
+
+Week 6 – Feature Engineering and Market Metrics
+
+Input: week4_cleaned_sold.csv (448,036 rows)
+
+Engineered metrics: PriceRatio, PricePerSqFt, DaysOnMarket, YrMo,
+CloseToOriginalListRatio, ListingToContractDays, ContractToCloseDays, SchoolDistrict
+
+School district spatial join: 552,850 / 553,081 matched (100.0%)
+
+Data quality flags:
+- ListingToContractDays: 290 negative values flagged
+- ContractToCloseDays: 240 negative values flagged
+- PriceRatio outliers in some PropertySubTypes (e.g. Condominium avg ~30.7,
+  CoOwnership avg ~46.4) — likely ClosePrice/OriginalListPrice data entry errors
+
+Segment summaries generated:
+- by PropertyType × PropertySubType: 20 rows
+- by CountyOrParish × MLSAreaMajor: 1,241 rows
+- by ListOfficeName × BuyerOfficeName: 224,895 rows
+
+Outputs: week6_feature_engineered_sold.csv, week6_segment_by_property_type.csv,
+week6_segment_by_county_area.csv, week6_segment_by_office.csv
