@@ -106,3 +106,13 @@ Segment summaries generated:
 
 Outputs: week6_feature_engineered_sold.csv, week6_segment_by_property_type.csv,
 week6_segment_by_county_area.csv, week6_segment_by_office.csv
+
+Week 7 - Outlier Detection and Data Quality
+
+This week's script (week7_outlier_detection.py) applies IQR-based outlier detection to the Week 6 feature-engineered Sold dataset, focusing on three key fields: ClosePrice, LivingArea, and DaysOnMarket. Rather than deleting extreme values outright, the script flags them using 1.5*IQR bounds and also applies a business rule marking any ClosePrice of zero or below as invalid. This keeps the raw data intact while making outliers easy to identify and exclude when needed.
+
+The script produces two outputs. The first, week7_flagged_sold.csv, contains the full original dataset of 557,459 rows with added flag columns for each field, so no records are lost and flagged rows can still be reviewed separately. The second, week7_filtered_sold.csv, removes all flagged rows and is intended as the clean, analysis-ready dataset. Filtering removed 87,877 rows, about 15.76% of the original data, leaving 469,582 rows.
+
+Comparing median values before and after filtering shows the outliers were meaningfully skewing the data. The ClosePrice median dropped from $816,000 to $780,000, indicating that a number of very high-priced sales were pulling the overall median upward. LivingArea's median dropped slightly from 1,648 to 1,572 square feet, and DaysOnMarket's median fell more noticeably from 18 to 15 days, suggesting a set of unusually long listings was inflating the typical time-on-market figure. Overall, the filtered dataset gives a more representative picture of a typical transaction, while the full flagged dataset remains available if the excluded high-end or atypical listings need to be studied separately.
+
+This exercise reinforced statistical data cleaning techniques, outlier detection using IQR, and the practice of flagging rather than deleting data to keep datasets both reliable and auditable.
