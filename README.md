@@ -116,3 +116,41 @@ The script produces two outputs. The first, week7_flagged_sold.csv, contains the
 Comparing median values before and after filtering shows the outliers were meaningfully skewing the data. The ClosePrice median dropped from $816,000 to $780,000, indicating that a number of very high-priced sales were pulling the overall median upward. LivingArea's median dropped slightly from 1,648 to 1,572 square feet, and DaysOnMarket's median fell more noticeably from 18 to 15 days, suggesting a set of unusually long listings was inflating the typical time-on-market figure. Overall, the filtered dataset gives a more representative picture of a typical transaction, while the full flagged dataset remains available if the excluded high-end or atypical listings need to be studied separately.
 
 This exercise reinforced statistical data cleaning techniques, outlier detection using IQR, and the practice of flagging rather than deleting data to keep datasets both reliable and auditable.
+
+Week 8 - Tableau Data Preparation
+
+Overview
+Aggregates the Week 4 cleaned CRMLS Listing and Sold datasets into a monthly summary table for the market_analysis.twbx Tableau workbook.
+
+Script
+week8_tableau_dataprep_v2.py
+
+Input
+
+week4_cleaned_listing.csv (582,611 rows)
+week4_cleaned_sold.csv (448,036 rows)
+
+Processing
+
+Grouped by City, CountyOrParish, PostalCode, PropertySubType, and month (YrMo)
+Dropped rows flagged invalid_price_flag before computing price-based metrics
+Dropped rows flagged invalid_dom_flag before computing days-on-market
+Derived CloseToOriginalListRatio = ClosePrice / OriginalListPrice
+
+Output
+tableau_market_analysis_summary.csv — 97,366 rows
+
+Columns:
+
+City, CountyOrParish, PostalCode, PropertySubType — grouping keys
+YrMo — year-month (YYYY-MM)
+NewListings — count of new listings that month
+MedianClosePrice — median close price, price-valid sales only
+ClosedSales — count of closed sales that month
+AvgDaysOnMarket — average days on market, DOM-valid sales only
+AvgCloseToOriginalListRatio — average close price / original list price
+
+Notes
+
+Months/groups with zero closed sales show NaN for MedianClosePrice and AvgDaysOnMarket — handle as blank or 0 in Tableau depending on the chart.
+AvgCloseToOriginalListRatio can swing widely for low-volume groups (e.g. 1-2 sales in a month); consider filtering on ClosedSales or showing it as a tooltip when building the dashboard.
